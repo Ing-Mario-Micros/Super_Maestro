@@ -8,11 +8,14 @@
 //Envió el cpodigo de I2C:
 
 #include<xc.h>
-#define _XTAL_FREQ 8000000
+#define _XTAL_FREQ 48000000
 #include "I2C.h"
-#pragma config FOSC=INTOSC_EC
+#pragma config PLLDIV = 5
+#pragma config CPUDIV = OSC1_PLL2
+#pragma config FOSC = HSPLL_HS  //Configuración de fuente de reloj interna
 #pragma config WDT=OFF
 #pragma config PBADEN=OFF
+#pragma LVP=OFF                 //Programación de Bajo voltaje Desactivada
 
 #define Tam_Vec 20              //Define el tamaño del Vector de recepción RS232
 
@@ -44,7 +47,7 @@ void main(void){
   TXSTA=0b00100000;     //Habilitación de trasnmición de datos
   RCSTA=0b10010000;     //Encendido del Puerto Serial y habilitación de Recepción
   BAUDCON=0b00000000;   //Configuración por Tabla 20-3 (9600Baudio)
-  SPBRG=12;             //Configuración por Tabla 20-3 (9600Baudio)
+  SPBRG=77;             //Configuración por Tabla 20-3 (9600Baudio)
   /* Configuración de interrupciones */
   RCIF=0;   //Bandera de Interrupción en Cero
   RCIE=1;   //Activación de la Interrupción para recepción de datos

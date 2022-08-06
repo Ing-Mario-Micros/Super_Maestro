@@ -37,7 +37,7 @@ void Activar_I2C_Maestro(void){
   SSPCON1=0b00101000;
   SSPCON2=0b00000000;
   SSPSTAT=0b11000000;
-  SSPADD=19;            //100kHz
+  SSPADD=120;            //100kHz Calculo necesario SSPADD=(Fosc/4)/FrecI2C 
 }
 void Start(void){    
   SEN=1;
