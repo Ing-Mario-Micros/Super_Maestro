@@ -32,7 +32,9 @@ void Enviar_Dato_I2C(unsigned char);
 unsigned char Recibir_Dato_I2C(unsigned char);
 void Enviar_Dato_DSPIC(unsigned char,unsigned char,unsigned char);
 unsigned char Recibir_Dato_DSPIC(unsigned char,unsigned char);
-/*------------------------------ Funciones I2C ---------------------*/
+/*------------------------------ Variables de datos ---------------------*/
+unsigned char Retransmision;
+
 void Activar_I2C_Maestro(void){
   SSPCON1=0b00101000;
   SSPCON2=0b00000000;
@@ -40,8 +42,25 @@ void Activar_I2C_Maestro(void){
   SSPADD=120;            //100kHz Calculo necesario SSPADD=(Fosc/4)/FrecI2C 
 }
 void Start(void){    
-  SEN=1;
-  while(SEN==1);  
+    if(I2C_STOP==1 || (RB0==1 && RB1==1)){
+        SEN=1;
+        while(SEN==1);
+        Retransmision = 0;
+        if(BCLIF=1){
+            Retransmision = 1;
+            //Guardar Datos en Buffer Temporal
+            //return true; 
+        }
+        else{
+            //return false; 
+        }
+    }
+    else{
+        Retransmision = 1;
+        //Guardar Datos en Buffer Temporal
+        //return true; 
+    }
+   
 }
 void Stop(void){
   PEN=1;
@@ -199,4 +218,3 @@ unsigned char Recibir_Dato_DSPIC(unsigned char Direccion , unsigned char Registr
 }
 
 #endif	/* I2C_H */
-
