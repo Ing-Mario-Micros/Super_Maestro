@@ -50,6 +50,7 @@ void Interrupcion_RS232 (void){
                  b++;
              }
              b=0;
+            //Funciòn de guardado
          }
 }
 /* Configurar RS232 */
